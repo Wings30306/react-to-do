@@ -6,13 +6,21 @@ class Todo extends Component {
         super(props)
 
         this.state = {}
+        this.handleDelete = this.handleDelete.bind(this)
+    }
+
+    handleDelete(){
+        this.props.removeTodo(this.props.id)
     }
 
     render(){
         return (
-            <div>
-                {this.props.editing ? <TodoEditForm /> : <p>To Do Item with icons</p>}
-            </div>
+            <li>
+                {this.props.editing ? <TodoEditForm /> : <p>{ this.props.task }
+                <button>Edit</button>
+                <button onClick={this.handleDelete}>Delete</button>
+                </p>}
+            </li>
         )
     }
 }

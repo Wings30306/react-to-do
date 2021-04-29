@@ -5,10 +5,11 @@ class TodoCreateForm extends Component {
         super(props)
 
         this.state = {
-            name: ""
+            task: ""
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(evt) {
@@ -18,19 +19,22 @@ class TodoCreateForm extends Component {
     }
 
     handleSubmit(evt){
+        evt.preventDefault()
         this.props.addItem(this.state)
+        this.setState({ task: ""})
     }
 
     render(){
         return (
             <form onSubmit={this.handleSubmit}>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="task">New Todo: </label>
                 <input
-                    id="name"
-                    name="name"
-                    value={this.state.name}
+                    id="task"
+                    name="task"
+                    value={this.state.task}
                     onChange={this.handleChange}
                 />
+                <button>Add Todo</button>
             </form>
         )
     }
