@@ -11,20 +11,20 @@ class TodoList extends Component {
             todoItems: [{
                 id: uuid(),
                 task: "Create To Do App", 
-                done: false, 
-                editing: false },]
+            },
+            ]
         }
 
         this.addNewItem = this.addNewItem.bind(this)
         this.remove = this.remove.bind(this)
+        this.update = this.update.bind(this)
     }
 
     addNewItem(item) {
         let newItem={
             id: uuid(),
             task: item.task, 
-            done: false, 
-            editing: false }
+            }
 
         this.setState({
             todoItems: [...this.state.todoItems, newItem]
@@ -38,13 +38,29 @@ class TodoList extends Component {
         })
     }
 
+    update(id, updatedTask) {
+        const updatedTodos = this.state.todoItems.map(todo => {
+            if(todo.id === id) {
+                return { ...todo, task: updatedTask}
+            }
+            return todo;
+        })
+        this.setState({ todoItems: updatedTodos})
+    }
+
     render(){
         return (
             <div>
                 <h1>To Do List</h1>
                 <ul>
                     {this.state.todoItems.map(
-                    item => <Todo key={item.id} editing={item.editing} task={item.task} removeTodo={this.remove} id={item.id}/>
+                    item => <Todo 
+                        key={item.id} 
+                        task={item.task} 
+                        removeTodo={this.remove} 
+                        updateTodo={this.update}
+                        id={item.id}
+                    />
                 )}
                 </ul>
                 
